@@ -1,5 +1,6 @@
 const program = require('commander')
-
+//引入index.js
+const api  = require('./index')
 //命令选项
 program
     .option('-x, --xxx', 'what is the x')
@@ -11,7 +12,7 @@ program
     .description('add a task')
     .action((...args) => {
         const words = args.slice(0,-1)
-        console.log(words);
+        api.add(words)//使用add
     });
 program
     .command('clear')
