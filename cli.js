@@ -12,13 +12,19 @@ program
     .description('add a task')
     .action((...args) => {
         const words = args.slice(0,-1)
-        api.add(words)//使用add
+        return api.add(words)//使用add
     });
 program
     .command('clear')
     .description('clear all tasks')
     .action((...args) => {
-        api.clear()
+        return api.clear()
     });
 
 program.parse(process.argv);
+
+if(process.argv.length === 2) { //通过打印process.argv可以得知当用户什么都没添加时有两个数据
+    //说明用户直接运行了 node cli.js
+    return api.showAll()
+}
+
