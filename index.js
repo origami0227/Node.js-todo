@@ -1,4 +1,5 @@
 const db = require('./db')
+const inquirer = require('inquirer')
 //add方法
 module.exports.add = async (title) => {
     //读取之前的任务
