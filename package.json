@@ -5,6 +5,6 @@
   "license": "MIT",
   "dependencies": {
     "commander": "^3.0.2",
-    "inquirer": "^9.1.5"
+    "inquirer": "^8.2.5"
   }
 }

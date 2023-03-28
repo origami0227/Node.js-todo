@@ -1,5 +1,5 @@
 const db = require('./db')
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
 //add方法
 module.exports.add = async (title) => {
     //读取之前的任务
@@ -22,4 +22,19 @@ module.exports.showAll = async () => {
     list.forEach((task, index) => { //接受任务和它的序号
         console.log(`${task.done ? '[✅]' : '[_]'}${index + 1}-${task.title}`)
     })
+
+    inquirer
+        .prompt([
+            {
+                type:'list',
+                name:'index',
+                message:'请选择你想操作的任务',
+                choices:[
+                    '1','2','3'
+                ]
+            }
+        ])
+        .then((answers) => {
+            console.log(answers)
+        })
 }
