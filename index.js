@@ -26,15 +26,17 @@ module.exports.showAll = async () => {
     inquirer
         .prompt([
             {
-                type:'list',
-                name:'index',
-                message:'请选择你想操作的任务',
-                choices:[
-                    '1','2','3'
+                type: 'list',
+                name: 'index',
+                message: '请选择你想操作的任务',
+                choices: [{name: '退出', value: '-1'}, ...
+                    list.map((task, index) => {
+                        return {name: `${task.done ? '[✅]' : '[_]'}${index + 1}-${task.title}`, value: index.toString()}
+                    })
                 ]
             }
         ])
         .then((answers) => {
-            console.log(answers)
+            console.log(answers.index)
         })
 }
