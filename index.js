@@ -54,24 +54,46 @@ module.exports.showAll = async () => {
                     ]
                 }).then(answer2 => {
                     switch (answer2.action) {
-                        case 'quit':
+                        case 'quit': //退出
                             break;
-                        case 'markAsDone':
+                        case 'markAsDone': //标记完成
                             list[index].done = true //标记为完成
-                            db.write(list)
+                            db.write(list) //保存
                             break;
-                        case 'markAsUndone':
+                        case 'markAsUndone': //标记未完成
                             list[index].done = false
                             db.write(list)
                             break;
-                        case 'updateTitle':
+                        case 'updateTitle': //修改标题
+                            inquirer.prompt({
+                                type: 'input',
+                                name: 'title',
+                                message: '新的标题',
+                                default: list[index].title,//默认显示旧标题
+                            }).then(answer => {
+                                list[index].title = answer.title //将用户输入的title赋值给list
+                                db.write(list)
+                            })
                             break;
-                        case 'remove':
+                        case 'remove': //删除
+                            list.splice(index, 1) //删除该项任务
+                            db.write(list)
                             break;
                     }
                 })
             } else if (index === -2) {
                 //说明选择了创建任务
+                inquirer.prompt({
+                    type: 'input',
+                    name: 'title',
+                    message: '输入任务标题',
+                }).then(answer => {
+                    list.push({
+                        title: answer.title,
+                        done: false,
+                    })
+                    db.write(list)
+                })
             }
         })
 }
